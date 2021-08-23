@@ -7,18 +7,17 @@ while(have_posts()){
 	// handle sending the mail
 	$sent_message = null;
 	if(isset($_POST["email"])){
-		$email = $_POST['email'];
+		$from = $_POST['email'];
 		$content = $_POST['email-content'];
 		$subject = $_POST['subject'];
-		$emailto = "alfredcolemanthe3rd@gmail.com";
+		$to = "simonmoush@gmail.com";
 
-		$header = "From: AlfredCiii.com Site Contact Form\r\nReply-To: $email\r\n";
-		$header .= "MIME-Version: 1.0\r\n";
-		$header .= "Content-type:text/html;charset=iso-8859-1\r\n";
+		$headers = [
+			"From: AlfredCIII.com Contact Form",
+			"Reply-To: $from",
+		];
 
-		$message = "$email has sent you a message through your website <br /><hr />$content";
-
-		mail($emailto, $subject, $message, $header);
+		wp_mail($to, $subject, $content, $headers)
 
 		$sent_message = "Your email has been sent. Thanks for getting in touch";
 	}
