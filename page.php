@@ -17,7 +17,7 @@ while(have_posts()){
 			"Reply-To: $from",
 		];
 
-		wp_mail($to, $subject, $content, $headers)
+		wp_mail($to, $subject, $content, $headers);
 
 		$sent_message = "Your email has been sent. Thanks for getting in touch";
 	}
