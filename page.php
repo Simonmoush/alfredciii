@@ -13,13 +13,12 @@ while(have_posts()){
 		$to = "simonmoush@gmail.com";
 
 		$headers = [
-			"From: AlfredCIII.com Contact Form",
-			"Reply-To: $from",
+			"From: contactform@alfredciii.simonmoush.com",
+			"Reply-To: <$from>"
 		];
 
-		wp_mail($to, $subject, $content, $headers);
-
-		$sent_message = "Your email has been sent. Thanks for getting in touch";
+		$success = wp_mail($to, $subject, $content, $headers) ? "success" : "failed";
+		$sent_message = "Your email has been sent. Thanks for getting in touch" . " ($success)";
 	}
 
 
