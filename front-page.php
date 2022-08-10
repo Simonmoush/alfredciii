@@ -3,6 +3,8 @@
 <style>
 	.fp-img-col{
 		top: 0px;
+		display: flex;
+		flex-direction: column;
 	}
 </style>
 <?php
@@ -28,9 +30,8 @@
 				$image_columns[$col][] = $img_data["url"];
 				$i++;
 			}
-			?> <div class="noverflow w-100 h-100 flex"> <?php
+			?> <div id="home-grid"> <?php
 			foreach($image_columns as $col => $image_column){
-				                                                                             // 25% on cpu, 100% on mobile
 				?> <div class="fp-img-col flex flex-column<?= $col%2 == 1 ? "-reverse" : ""; ?> w-25-ns w-100 mh1 relative"> <?php
 				foreach($image_column as $url){
 					?> <img class="flex-size w-100 mv1" src="<?= $url; ?>"> <?php

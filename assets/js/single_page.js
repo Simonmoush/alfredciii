@@ -50,7 +50,7 @@ function do_transition(event){
 
 function transitionify(){
 	let links_to_transition = [];
-	links_to_transition.push(document.querySelectorAll("a"));
+	links_to_transition.push(document.querySelectorAll("a:not(.external)"));
 
 	links_to_transition.forEach(function(links){
 		links.forEach(function(link){

@@ -6,10 +6,10 @@
 */
 function rise(){
 	let columns = document.querySelectorAll(".fp-img-col");
+	// we need to keep checking because the site is a single page app and the content may change.
 	if(columns == null){
 		window.requestAnimationFrame(rise);
 		return;
-		// we need to keep checking because the site is a single page app and the content may change.
 	}
 
 	columns.forEach(function(col, i){
