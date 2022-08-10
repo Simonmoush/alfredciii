@@ -5,8 +5,7 @@ add_action("wp_enqueue_scripts", "acii_enqueue_scripts");
 function acii_enqueue_scripts(){
 	global $wp;
 
-	wp_enqueue_style("tachions", "https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css");
-	wp_enqueue_style("custom-css-classes", get_template_directory_uri() . "/assets/styles/custom-classes.css");
+	wp_enqueue_style("alfred_style", get_template_directory_uri() . "/assets/styles/alfred.css");
 	wp_enqueue_script("clouds_js", get_template_directory_uri() . "/assets/js/clouds.js");
 	wp_enqueue_script("single_page", get_template_directory_uri() . "/assets/js/single_page.js");
 
