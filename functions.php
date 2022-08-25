@@ -1,53 +1,35 @@
 <?php
 
-add_action("wp_enqueue_scripts", "acii_enqueue_scripts");
+add_action("wp_enqueue_scripts", "aciii_enqueue_scripts");
 
-function acii_enqueue_scripts(){
-	global $wp;
-
+function aciii_enqueue_scripts(){
 	wp_enqueue_style("alfred_style", get_template_directory_uri() . "/assets/styles/alfred.css");
 	wp_enqueue_script("clouds_js", get_template_directory_uri() . "/assets/js/clouds.js");
 	wp_enqueue_script("single_page", get_template_directory_uri() . "/assets/js/single_page.js");
-
 }
 
+// don't show the admin bar on the front end if the user is logged in
 add_filter( 'show_admin_bar', '__return_false' );
 
-add_filter( 'big_image_size_threshold', '__return_false' );
+// allows images to be full size
+//add_filter( 'big_image_size_threshold', '__return_false' );
 
 // returns an array of image urls and thier classes
 function get_all_images_from_post(){
 	global $post;
 
-	$regex = '/<img.+?(?:class.+?[\'"](.+?)[\'"])?.+?src=[\'"]([^\'"]+)[\'"].*?>/i';
-	$output = preg_match_all($regex, $post->post_content, $matches);
-	$images = [];
-
-	if($output > 0){
-		for($i = 0; $i < sizeof($matches[0]); $i++){
-			$images[] = [
-				"url" => $matches[2][$i],
-				"class" => $matches[1][$i]
-			];
-		}
-
-		return $images;
+	$num_matches = preg_match_all('/<img\s+.*src="(.*)"\s+.*>/U', $post->post_content, $matches);
+	if(!$num_matches){
+		return [];
 	}
-	return [];
+	$img_urls = $matches[1]; // matches[1] is the capture group with just the url
+	return $img_urls;
 }
 
 function get_first_img_from_post() {
-	global $post, $posts;
-	$first_img = '';
-	ob_start();
-	ob_end_clean();
-	$output = preg_match_all('/<img.+?src=[\'"]([^\'"]+)[\'"].*?>/i', $post->post_content, $matches);
-	$first_img = $matches[1][0];
-
-	if(empty($first_img)) {
-		$first_img = "";
-	}
-	return $first_img;
+	$all_urls = get_all_images_from_post();
+	if(!empty($all_urls))
+	return $all_urls[0];
 }
 
 

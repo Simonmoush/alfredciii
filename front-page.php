@@ -1,40 +1,33 @@
 <?php get_header(); ?>
 
-<style>
-	.fp-img-col{
-		top: 0px;
-		display: flex;
-		flex-direction: column;
-	}
-</style>
 <?php
 	if (have_posts() ) :
 		while ( have_posts() ) :
 
 			the_post();
 
-			$images = get_all_images_from_post();
+			$all_images = get_all_images_from_post();
 
-			if(empty($images)){ continue; }
+			if(empty($all_images)){ continue; }
 
-			// set up an array for each column
-			$num_columns = wp_is_mobile() ? 1 : 4; // mobile site has a single column
-			$image_columns = [];
-			for($c = 0; $c < $num_columns; $c++){
-				$image_columns[] = [];
+			// set up an array for each list
+			$num_lists = 4;
+			$image_lists = [];
+			for($l = 0; $l < $num_lists; $l++){
+				$image_lists[] = [];
 			}
 
-			$i = 0;
-			foreach($images as $img_data){
-				$col = $i % $num_columns;
-				$image_columns[$col][] = $img_data["url"];
-				$i++;
+			foreach($all_images as $i => $url){
+				$list = $i % $num_lists;
+				$image_lists[$list][] = $url;
 			}
-			?> <div id="home-grid"> <?php
-			foreach($image_columns as $col => $image_column){
-				?> <div class="fp-img-col flex flex-column<?= $col%2 == 1 ? "-reverse" : ""; ?> w-25-ns w-100 mh1 relative"> <?php
-				foreach($image_column as $url){
-					?> <img class="flex-size w-100 mv1" src="<?= $url; ?>"> <?php
+			?> <div id="image-lists"> <?php
+			foreach($image_lists as $list => $image_list){
+				?>
+				<div class="fp-img-list <?= $list%2 == 1 ? 'reverse' : 'forward'; ?>">
+				<?php
+				foreach($image_list as $url){
+					?> <img class="fp-img" src="<?= $url; ?>"> <?php
 				}
 				?> </div> <?php
 			}

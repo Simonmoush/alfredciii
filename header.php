@@ -16,16 +16,28 @@
 			<h1 id="title">Alfred<br>Coleman<br>III</h1>
 			<h2 id="subtitle">Photography</h2>
 		</div>
+		
+		<hr class="sidebar-separator">
 
 		<ul id="nav">
 			<li><a href="<?= site_url("/"); ?>">Home</a></li>
 			<li><a href="<?= site_url("/work"); ?>">Work</a></li>
 			<li><a href="<?= site_url("/contact"); ?>">Contact</a></li>
 		</ul>
+
+		<hr class="sidebar-separator">
+
+		<div id="sidebar-footer">
+			<hr class="separator">
+			<div>Instagram: themanwhosmellsofsunflowers</div>
+			<div>Email: alfredcolemanthe3rd@gmail.com</div>
+			<hr class="separator">
+		</div>
+
 		<audio id="audio-player" controls autoplay loop>
 			<source src="<?=get_template_directory_uri() . '/assets/music/ma.mp3'; ?>" type="audio/mpeg">
 		</audio>
 	</div>
-	<div class="content">
+	<div id="content">
 
 <?php endif; ?>

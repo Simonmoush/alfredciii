@@ -1,14 +1,8 @@
-function is_mobile(){
-	let m = navigator.userAgent.toLowerCase().match(/mobile/i); 
-	return m !== null;
-}
-
 window.addEventListener('popstate', (event) => {
 	do_transition(event);
 });
 
 function do_transition(event){
-	if(is_mobile()){ return; }
 	event.preventDefault();
 	
 	let url = "";
@@ -36,7 +30,7 @@ function do_transition(event){
 			var status = xhr.status;
 			if (status === 0 || (status >= 200 && status < 400)) {
 				// change the page
-				document.querySelector(".dynamic-content").innerHTML = xhr.response;
+				document.querySelector("#content").innerHTML = xhr.response;
 
 				// rescan the new page for links that should be transitioning
 				transitionify();

@@ -3,43 +3,89 @@
 	when the top attribute becomes greater than the height of the first image
 		subtract the height of the first image from the top attribute
 		move the first image to the end of the list
+	
+	Edit: extend this to also work for horizontal images
+
+	TODO: whenever the page changes we need to call cycle
 */
-function rise(){
-	let columns = document.querySelectorAll(".fp-img-col");
-	// we need to keep checking because the site is a single page app and the content may change.
-	if(columns == null){
-		window.requestAnimationFrame(rise);
+
+function get_front(list){
+	let parent_flex_direction = window.getComputedStyle(list.parentNode).flexDirection;
+	let front = null;
+	if(parent_flex_direction == "column"){
+		front = window.getComputedStyle(list).left.match(/-?\d+(\.\d+)?/)[0];
+	}else if(parent_flex_direction == "row"){
+		front = window.getComputedStyle(list).top.match(/-?\d+(\.\d+)?/)[0];
+	}
+	return parseFloat(front);
+}
+
+function set_front(list, front){
+	let parent_flex_direction = window.getComputedStyle(list.parentNode).flexDirection;
+	if(parent_flex_direction == "column"){
+		list.style.top = "0px";
+		return list.style.left = front + "px";
+	}else if(parent_flex_direction == "row"){
+		list.style.left = "0px";
+		return list.style.top = front + "px";
+	}
+}
+
+function get_first_img_size(list){
+	let parent_flex_direction = window.getComputedStyle(list.parentNode).flexDirection;
+
+	let first_image = list.firstElementChild;
+	let first_image_style = window.getComputedStyle(first_image);
+	
+	let size = null;
+	if(parent_flex_direction == "column"){
+		size = parseFloat(first_image_style.width.match(/-?\d+(\.\d+)?/));
+	}else if(parent_flex_direction == "row"){
+		size = parseFloat(first_image_style.height.match(/-?\d+(\.\d+)?/));
+	}
+
+	return size;
+}
+
+function cycle(){
+	let lists = document.querySelectorAll(".fp-img-list");
+	if(lists == null){
+		window.requestAnimationFrame(cycle); // TODO: remove this and only check when the page changes
 		return;
 	}
 
-	columns.forEach(function(col, i){
-		let col_style = window.getComputedStyle(col);
-		let current_top = parseFloat(col_style.top.match(/-?\d+(\.\d+)?/));
+	lists.forEach(function(list, i){
 
-		let up = i % 2 == 0;
+		// get current front offset
+		let current_front = get_front(list);
+		
+		// get direction
+		let forward = list.classList.contains("forward");
 
-		let dt = (i+5)/10;
-		if(up){
-			dt *= -1;
-		}
+		// sets the speed of each column
+		let dfront = (i+5)/10;
 
-		let new_top = current_top + dt;
+		// reverse the direction for forward lists
+		if(forward){ dfront *= -1; }
 
-		let first_image = col.firstElementChild;
-		let first_image_style = window.getComputedStyle(first_image);
-		let first_image_height = parseFloat(first_image_style.height.match(/-?\d+(\.\d+)?/));
-		let margin = parseFloat(first_image_style.marginTop.match(/-?\d+(\.\d+)?/));
+		// calculate the new offset
+		let new_front = current_front + dfront;
 
-		if(Math.abs(new_top) > first_image_height + 2*margin){
-			// move the node to the end
-			col.appendChild(first_image);
-			col.style.top = "0px";
+		// set the new offset and, if needed, move the front node to the end
+		let size = get_first_img_size(list);
+
+		if(Math.abs(new_front) > size){
+			// move the front to the end
+			list.appendChild(list.firstElementChild);
+			// reset the offset
+			set_front(list, 0);
 		}else{
-			col.style.top = new_top + "px";
+			// advance the offset
+			set_front(list, new_front);
 		}
 	});
 
-	window.requestAnimationFrame(rise);
+	window.requestAnimationFrame(cycle);
 }
 
-document.addEventListener("DOMContentLoaded", function(){rise();});
+document.addEventListener("DOMContentLoaded", function(){cycle();});
