@@ -34,9 +34,11 @@
 			<hr class="separator">
 		</div>
 
-		<audio id="audio-player" controls autoplay loop>
-			<source src="<?=get_template_directory_uri() . '/assets/music/ma.mp3'; ?>" type="audio/mpeg">
-		</audio>
+		<?php if(false): ?>
+			<audio id="audio-player" controls autoplay loop>
+				<source src="<?=get_template_directory_uri() . '/assets/music/ma.mp3'; ?>" type="audio/mpeg">
+			</audio>
+		<?php endif; ?>
 	</div>
 	<div id="content">
 
