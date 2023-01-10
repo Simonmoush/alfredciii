@@ -12,6 +12,7 @@
 <script>
 	// just for mobile parallax effect
 	function mobile_parallax(){
+		console.log("in mobile_parallax");
 		function map_range(x, from_start, from_end, to_start, to_end){
 			let range1 = from_end - from_start;
 			let range2 = to_end - to_start;
@@ -28,6 +29,7 @@
 		document.addEventListener("scroll", do_parallax);
 
 		function do_parallax(){
+			console.log("in do_parallax");
 			let images = document.querySelectorAll("#character_select .view");
 			if(!is_mobile()){
 				return;
