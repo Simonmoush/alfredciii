@@ -1,0 +1,12 @@
+The Problem:
+	When a visitor arrives on the work page from another page on the site, the parallax doesn't work
+	It does work when the visitor directly loads the work page or arrives there from another place
+
+The Reason:
+	If the user arrives the page directly, it's loaded and any javascript in the page is run
+	If the user arrives on the page from another page on the site the page is not reloaded. the content is dynamically replaced
+	When this happens any javascript sent with the new page IS NOT run
+
+Solutions:
+	1) Leave the javascript running as part of the page that isn't replaced - enqueue it with the other scripts
+		modify the javascript to only act on mobile

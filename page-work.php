@@ -10,6 +10,7 @@
 	<?php } ?> 
 </div>
 <script>
+/*
 	// just for mobile parallax effect
 	function mobile_parallax(){
 		console.log("in mobile_parallax");
@@ -61,6 +62,7 @@
 
 	mobile_parallax();
 	// TODO this doesn't set the correct position on the page load...
+*/
 </script>
 
 <?php get_footer(); ?>

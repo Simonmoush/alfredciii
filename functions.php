@@ -6,6 +6,7 @@ function aciii_enqueue_scripts(){
 	wp_enqueue_style("alfred_style", get_template_directory_uri() . "/assets/styles/alfred.css");
 	wp_enqueue_script("clouds_js", get_template_directory_uri() . "/assets/js/clouds.js");
 	wp_enqueue_script("single_page", get_template_directory_uri() . "/assets/js/single_page.js");
+	wp_enqueue_script("work_parallax", get_template_directory_uri() . "/assets/js/parallax.js");
 }
 
 // don't show the admin bar on the front end if the user is logged in
