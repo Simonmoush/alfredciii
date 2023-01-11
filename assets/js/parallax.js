@@ -16,10 +16,9 @@ function mobile_parallax(){
 	document.addEventListener("scroll", do_parallax);
 
 	function do_parallax(){
+		if(!is_mobile()){ return; }
+
 		let images = document.querySelectorAll("#character_select .view");
-		if(!is_mobile()){
-			return;
-		}
 		images.forEach(function(img){
 			//get image center
 			let client_rect = img.getBoundingClientRect();
