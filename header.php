@@ -22,7 +22,7 @@
 		<ul id="nav">
 			<li><a href="<?= site_url("/"); ?>">Home</a></li>
 			<li><a href="<?= site_url("/work"); ?>">Work</a></li>
-			<li><a href="<?= site_url("/contact"); ?>">Contact</a></li>
+			<li><a href="<?= site_url("/contact"); ?>">About</a></li>
 		</ul>
 
 		<hr class="sidebar-separator">
